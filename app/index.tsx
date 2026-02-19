@@ -3,5 +3,5 @@ import "react-native-reanimated";
 import "expo-router/entry";
 
 export default function Index() {
-  return <Redirect href="/(auth)/sign-up" />;
+  return <Redirect href="/welcome" />;
 }
