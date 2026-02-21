@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { MotiView } from 'moti'
 import Nav from '../(screens-components)/nav'
 import StatusBox from '../(screens-components)/StatusBox'
+import AddMission from '../(screens-components)/AddMission'
 
 export default function dashboard() {
   return (
@@ -29,6 +30,8 @@ export default function dashboard() {
         <View>
          <Nav />
         </View>
+        {/* Missions bar */}
+         <AddMission />
        {/* Todays's status section */}
        <View className='px-10 py-2'>
         <StatusBox FocusMinutes={120} DoneMissions={3} AllMisions={5} UpcomingCount={2} />
