@@ -21,7 +21,7 @@ export function AddMissions({ onAddMission }: { onAddMission?: (mission: string)
 
     return (
         <View className='w-full h-full bg-slate-950 items-center flex justify-center'>
-            <Text className='text-md font-bold text-white mb-4'>Add Your Mission</Text>
+            <Text className='text-base font-bold text-white mb-4'>Add Your Mission</Text>
              <View className='w-[70%] h-[50%] bg-blue-950 flex items-center justify-center rounded-md'>
                 <TextInput 
                 className='w-full h-full bg-white/20 rounded-md p-4 text-white'
@@ -58,7 +58,7 @@ export default function AddMission({ onAddMission }: AddMissionProps) {
         onPress={() => setIsOpen(true)}
     >
       <View className='items-center m-10'>
-         <Text className='text-md font-bold text-slate-900'>Add Mission</Text>
+         <Text className='text-base font-bold text-slate-900'>Add Mission</Text>
       </View>
     </TouchableOpacity>
 
