@@ -1,16 +1,15 @@
 module.exports = function (api) {
   api.cache(true);
-  const isNative = api.caller((caller) => caller && (caller.platform === 'ios' || caller.platform === 'android'));
   return {
     presets: ["babel-preset-expo"],
     plugins: [
+      "nativewind/babel",
       [
         "react-native-reanimated/plugin",
         {
           relativeSourceLocation: true,
         },
       ],
-      ...(isNative ? ["nativewind/babel"] : []),
     ],
     env: {
       production: {
