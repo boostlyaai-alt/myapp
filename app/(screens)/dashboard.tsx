@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import AddMission from '../(screens-components)/AddMission'
 import Nav from '../(screens-components)/nav'
+import QuickActions from '../(screens-components)/QuickActions'
 import StatusBox from '../(screens-components)/StatusBox'
 
 export default function dashboard() {
@@ -19,6 +20,8 @@ export default function dashboard() {
        <View style={styles.statusContainer}>
         <StatusBox FocusMinutes={120} DoneMissions={3} AllMisions={5} UpcomingCount={2} />
        </View>
+       {/* Quick Actions */}
+       <QuickActions />
       </View>
     </SafeAreaView>
   )
