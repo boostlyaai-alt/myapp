@@ -1,4 +1,3 @@
-import { MotiView } from 'moti'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -9,22 +8,7 @@ import StatusBox from '../(screens-components)/StatusBox'
 export default function dashboard() {
   return (
     <SafeAreaView style={styles.container}>
-      <MotiView
-      from={{
-        translateY:-100,
-        scale:0.2,
-        opacity:0
-      }}
-      animate={{
-        translateY:0,
-        scale:1,
-        opacity:1
-      }}
-      transition={{ type: "timing",
-         duration: 450,
-          delay: 60 
-     }}
-      >
+      <View>
         {/* Header Section */}
         <View>
          <Nav />
@@ -35,7 +19,7 @@ export default function dashboard() {
        <View style={styles.statusContainer}>
         <StatusBox FocusMinutes={120} DoneMissions={3} AllMisions={5} UpcomingCount={2} />
        </View>
-      </MotiView>
+      </View>
     </SafeAreaView>
   )
 };

@@ -1,4 +1,3 @@
-import { MotiView } from 'moti'
 import React, { useState } from 'react'
 import { ScrollView, Switch, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -103,22 +102,7 @@ export default function Settings() {
 
   return (
     <SafeAreaView className='w-full h-full bg-slate-900'>
-      <MotiView
-        from={{
-          translateY: -100,
-          scale: 0.2,
-          opacity: 0
-        }}
-        animate={{
-          translateY: 0,
-          scale: 1,
-          opacity: 1
-        }}
-        transition={{
-          type: "timing",
-          duration: 450,
-          delay: 60
-        }}
+      <View
         className='flex-1'
       >
         {/* Header Section */}
@@ -165,7 +149,7 @@ export default function Settings() {
             </TouchableOpacity>
           </View>
         </ScrollView>
-      </MotiView>
+      </View>
     </SafeAreaView>
   )
 }

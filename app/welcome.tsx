@@ -1,5 +1,4 @@
 import { router } from "expo-router";
-import { MotiText, MotiView } from 'moti';
 import { useEffect, useRef, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -49,87 +48,30 @@ export default function Welcome() {
                             className='flex items-center justify-center w-full h-full px-8'
                         >
                             {/* Icon/Illustration Placeholder */}
-                            <MotiView
-                                from={{
-                                    opacity: 0,
-                                    scale: 0.5,
-                                    translateY: 40,
-                                }}
-                                animate={{
-                                    opacity: isAnimating ? 1 : 0,
-                                    scale: isAnimating ? 1 : 0.5,
-                                    translateY: isAnimating ? 0 : 40,
-                                }}
-                                transition={{
-                                    type: 'spring',
-                                    damping: 10,
-                                    mass: 1,
-                                }}                                className='w-48 h-48 bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl mb-12'
+                            <View
+                                className='w-48 h-48 bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl mb-12'
                             />
 
                             {/* Title */}
-                            <MotiView
-                                from={{
-                                    opacity: 0,
-                                    translateY: 30,
-                                }}
-                                animate={{
-                                    opacity: isAnimating ? 1 : 0,
-                                    translateY: isAnimating ? 0 : 30,
-                                }}
-                                transition={{
-                                    type: 'spring',
-                                    damping: 12,
-                                    delay: 100,
-                                }}
-                            >
-                                <MotiText className='text-slate-900 text-4xl font-bold text-center mb-6'>
+                            <View>
+                                <Text className='text-slate-900 text-4xl font-bold text-center mb-6'>
                                     {item.title}
-                                </MotiText>
-                            </MotiView>
+                                </Text>
+                            </View>
 
                             {/* Description */}
-                            <MotiView
-                                from={{
-                                    opacity: 0,
-                                    translateY: 30,
-                                }}
-                                animate={{
-                                    opacity: isAnimating ? 1 : 0,
-                                    translateY: isAnimating ? 0 : 30,
-                                }}
-                                transition={{
-                                    type: 'spring',
-                                    damping: 12,
-                                    delay: 200,
-                                }}
-                            >
-                                <MotiText className='text-slate-600 text-lg text-center leading-relaxed'>
+                            <View>
+                                <Text className='text-slate-600 text-lg text-center leading-relaxed'>
                                     {item.disc}
-                                </MotiText>
-                            </MotiView>
+                                </Text>
+                            </View>
                         </View>
                     ))}
                 </Swiper>
             </View>
 
             {/* Action Button */}
-            <MotiView
-                from={{
-                    opacity: 0,
-                    scale: 0.8,
-                    translateY: 50,
-                }}
-                animate={{
-                    opacity: isAnimating ? 1 : 0,
-                    scale: isAnimating ? 1 : 0.8,
-                    translateY: isAnimating ? 0 : 50,
-                }}
-                transition={{
-                    type: 'spring',
-                    damping: 10,
-                    delay: 300,
-                }}
+            <View
                 className='w-full px-6'
             >
                 <TouchableOpacity
@@ -141,7 +83,7 @@ export default function Welcome() {
                         {isLastSlide ? "Get Started" : "Next"}
                     </Text>
                 </TouchableOpacity>
-            </MotiView>
+            </View>
         </SafeAreaView>
     );
 };

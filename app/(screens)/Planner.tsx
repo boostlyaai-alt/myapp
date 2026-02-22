@@ -1,4 +1,3 @@
-import { MotiView } from 'moti'
 import React, { useState } from 'react'
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -49,23 +48,8 @@ export default function Planner() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <MotiView
-        from={{
-          translateY: -100,
-          scale: 0.2,
-          opacity: 0
-        }}
-        animate={{
-          translateY: 0,
-          scale: 1,
-          opacity: 1
-        }}
-        transition={{
-          type: "timing",
-          duration: 450,
-          delay: 60
-        }}
-        style={styles.motiView}
+      <View
+        style={{ flex: 1 }}
       >
         {/* Header Section */}
         <View>
@@ -112,7 +96,7 @@ export default function Planner() {
             </TouchableOpacity>
           ))}
         </ScrollView>
-      </MotiView>
+      </View>
     </SafeAreaView>
   )
 }
@@ -122,9 +106,6 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
     backgroundColor: '#0f172a',
-  },
-  motiView: {
-    flex: 1,
   },
   progressContainer: {
     paddingHorizontal: 24,
