@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 import { MotiText, MotiView } from 'moti';
 import { useEffect, useRef, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import Swiper from "react-native-swiper";
 import { onboarding } from './constans';
@@ -17,25 +17,25 @@ export default function Welcome() {
     }, [activeIndex]);
 
     return (
-        <SafeAreaView className='flex h-full items-center justify-between bg-gradient-to-b from-slate-50 to-blue-50'>
+        <SafeAreaView style={styles.container}>
             {/* Skip Button */}
             <TouchableOpacity 
                 onPress={() => router.replace("/(auth)/sign-up")} 
-                className='w-full flex justify-end items-end px-5 py-4'
+                style={styles.skipButton}
             >
-                <Text className='text-slate-600 text-base font-semibold'>Skip</Text>
+                <Text style={styles.skipText}>Skip</Text>
             </TouchableOpacity>
 
             {/* Swiper Container */}
-            <View className='flex-1 w-full'>
+            <View style={styles.swiperContainer}>
                 <Swiper
                     ref={swiperRef}
                     loop={false}
                     dot={
-                        <View className='w-2 h-2 mx-1.5 bg-slate-300 rounded-full' />
+                        <View style={styles.dot} />
                     }
                     activeDot={
-                        <View className='w-8 h-2 mx-1.5 bg-blue-500 rounded-full' />
+                        <View style={styles.activeDot} />
                     }
                     onIndexChanged={(index) => {
                         setActiveIndex(index);
@@ -46,7 +46,7 @@ export default function Welcome() {
                     {onboarding.map((item) => (
                         <View 
                             key={item.id} 
-                            className='flex items-center justify-center w-full h-full px-8'
+                            style={styles.slide}
                         >
                             {/* Icon/Illustration Placeholder */}
                             <MotiView
@@ -65,7 +65,7 @@ export default function Welcome() {
                                     damping: 10,
                                     mass: 1,
                                 }}
-                                className='w-48 h-48 bg-gradient-to-br from-blue-400 to-blue-600 rounded-3xl mb-12'
+                                style={styles.icon}
                             />
 
                             {/* Title */}
@@ -84,7 +84,7 @@ export default function Welcome() {
                                     delay: 100,
                                 }}
                             >
-                                <MotiText className='text-slate-900 text-4xl font-bold text-center mb-6'>
+                                <MotiText style={styles.title}>
                                     {item.title}
                                 </MotiText>
                             </MotiView>
@@ -105,7 +105,7 @@ export default function Welcome() {
                                     delay: 200,
                                 }}
                             >
-                                <MotiText className='text-slate-600 text-lg text-center leading-relaxed'>
+                                <MotiText style={styles.description}>
                                     {item.disc}
                                 </MotiText>
                             </MotiView>
@@ -131,14 +131,14 @@ export default function Welcome() {
                     damping: 10,
                     delay: 300,
                 }}
-                className='w-full px-6'
+                style={styles.buttonContainer}
             >
                 <TouchableOpacity
                     onPress={() => isLastSlide ? router.replace("/(auth)/sign-up") : swiperRef.current?.scrollBy(1)}
                     activeOpacity={0.8}
-                    className='bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl py-4 mb-8 shadow-lg'
+                    style={styles.button}
                 >
-                    <Text className='text-white text-center text-lg font-bold'>
+                    <Text style={styles.buttonText}>
                         {isLastSlide ? "Get Started" : "Next"}
                     </Text>
                 </TouchableOpacity>
@@ -146,3 +146,92 @@ export default function Welcome() {
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#f8fafc', // approximate gradient start
+    },
+    skipButton: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+        alignItems: 'flex-end',
+        paddingHorizontal: 20,
+        paddingVertical: 16,
+    },
+    skipText: {
+        color: '#475569',
+        fontSize: 16,
+        fontWeight: '600',
+    },
+    swiperContainer: {
+        flex: 1,
+        width: '100%',
+    },
+    dot: {
+        width: 8,
+        height: 8,
+        marginHorizontal: 6,
+        backgroundColor: '#cbd5e1',
+        borderRadius: 4,
+    },
+    activeDot: {
+        width: 32,
+        height: 8,
+        marginHorizontal: 6,
+        backgroundColor: '#3b82f6',
+        borderRadius: 4,
+    },
+    slide: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '100%',
+        paddingHorizontal: 32,
+    },
+    icon: {
+        width: 192,
+        height: 192,
+        backgroundColor: '#3b82f6', // approximate gradient
+        borderRadius: 24,
+        marginBottom: 48,
+    },
+    title: {
+        color: '#0f172a',
+        fontSize: 36,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom: 24,
+    },
+    description: {
+        color: '#475569',
+        fontSize: 18,
+        textAlign: 'center',
+        lineHeight: 28,
+    },
+    buttonContainer: {
+        width: '100%',
+        paddingHorizontal: 24,
+    },
+    button: {
+        backgroundColor: '#3b82f6', // approximate gradient
+        borderRadius: 16,
+        paddingVertical: 16,
+        marginBottom: 32,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+        elevation: 8,
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+});

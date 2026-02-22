@@ -1,6 +1,6 @@
 import { MotiView } from 'moti'
 import React from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Nav from '../(screens-components)/nav'
 
@@ -24,7 +24,7 @@ export default function Progress() {
   const maxFocusMinutes = Math.max(...weeklyData.map(d => d.focusMinutes))
 
   return (
-    <SafeAreaView className='w-full h-full bg-slate-900'>
+    <SafeAreaView style={styles.container}>
       <MotiView
         from={{
           translateY: -100,
@@ -41,108 +41,100 @@ export default function Progress() {
           duration: 450,
           delay: 60
         }}
-        className='flex-1'
+        style={styles.motiView}
       >
         {/* Header Section */}
         <View>
           <Nav />
         </View>
 
-        <ScrollView className='flex-1 px-6'>
+        <ScrollView style={styles.scrollView}>
           {/* Weekly Summary */}
-          <View className='bg-slate-800 rounded-lg p-6 mb-6'>
-            <Text className='text-white text-xl font-bold mb-4'>This Week</Text>
-            <View className='flex-row justify-between mb-4'>
-              <View className='items-center'>
-                <Text className='text-2xl font-bold text-blue-400'>{totalFocusMinutes}</Text>
-                <Text className='text-gray-400'>Focus Minutes</Text>
+          <View style={styles.summaryCard}>
+            <Text style={styles.cardTitle}>This Week</Text>
+            <View style={styles.summaryRow}>
+              <View style={styles.summaryItem}>
+                <Text style={[styles.summaryNumber, { color: '#60a5fa' }]}>{totalFocusMinutes}</Text>
+                <Text style={styles.summaryLabel}>Focus Minutes</Text>
               </View>
-              <View className='items-center'>
-                <Text className='text-2xl font-bold text-green-400'>{totalMissions}</Text>
-                <Text className='text-gray-400'>Missions Done</Text>
+              <View style={styles.summaryItem}>
+                <Text style={[styles.summaryNumber, { color: '#4ade80' }]}>{totalMissions}</Text>
+                <Text style={styles.summaryLabel}>Missions Done</Text>
               </View>
             </View>
-            <View className='flex-row justify-between'>
-              <View className='items-center'>
-                <Text className='text-lg font-semibold text-yellow-400'>{averageFocus}</Text>
-                <Text className='text-gray-400'>Avg Focus/Day</Text>
+            <View style={styles.summaryRow}>
+              <View style={styles.summaryItem}>
+                <Text style={[styles.summarySubNumber, { color: '#eab308' }]}>{averageFocus}</Text>
+                <Text style={styles.summaryLabel}>Avg Focus/Day</Text>
               </View>
-              <View className='items-center'>
-                <Text className='text-lg font-semibold text-purple-400'>{averageMissions}</Text>
-                <Text className='text-gray-400'>Avg Missions/Day</Text>
+              <View style={styles.summaryItem}>
+                <Text style={[styles.summarySubNumber, { color: '#a78bfa' }]}>{averageMissions}</Text>
+                <Text style={styles.summaryLabel}>Avg Missions/Day</Text>
               </View>
             </View>
           </View>
 
           {/* Daily Progress Chart */}
-          <View className='bg-slate-800 rounded-lg p-6 mb-6'>
-            <Text className='text-white text-xl font-bold mb-4'>Daily Focus Time</Text>
-            <View className='flex-row justify-between items-end h-32'>
+          <View style={styles.chartCard}>
+            <Text style={styles.cardTitle}>Daily Focus Time</Text>
+            <View style={styles.chartContainer}>
               {weeklyData.map((day, index) => (
-                <View key={index} className='items-center flex-1'>
+                <View key={index} style={styles.barContainer}>
                   <View
-                    className='bg-blue-600 rounded-t w-8 mb-2'
-                    style={{
-                      height: `${(day.focusMinutes / maxFocusMinutes) * 100}%`,
-                      minHeight: 4
-                    }}
+                    style={[styles.bar, { height: `${(day.focusMinutes / maxFocusMinutes) * 100}%`, minHeight: 4 }]}
                   />
-                  <Text className='text-gray-400 text-xs'>{day.day}</Text>
-                  <Text className='text-white text-xs font-semibold'>{day.focusMinutes}m</Text>
+                  <Text style={styles.barLabel}>{day.day}</Text>
+                  <Text style={styles.barValue}>{day.focusMinutes}m</Text>
                 </View>
               ))}
             </View>
           </View>
 
           {/* Missions Completed Chart */}
-          <View className='bg-slate-800 rounded-lg p-6 mb-6'>
-            <Text className='text-white text-xl font-bold mb-4'>Missions Completed</Text>
-            <View className='flex-row justify-between items-end h-32'>
+          <View style={styles.chartCard}>
+            <Text style={styles.cardTitle}>Missions Completed</Text>
+            <View style={styles.chartContainer}>
               {weeklyData.map((day, index) => (
-                <View key={index} className='items-center flex-1'>
+                <View key={index} style={styles.barContainer}>
                   <View
-                    className='bg-green-600 rounded-t w-8 mb-2'
-                    style={{
-                      height: `${(day.missionsCompleted / 4) * 100}%`, // Assuming max 4 missions per day
-                      minHeight: 4
-                    }}
+                    style={[styles.missionsBar, { height: `${(day.missionsCompleted / 4) * 100}%`, minHeight: 4 }]}
                   />
-                  <Text className='text-gray-400 text-xs'>{day.day}</Text>
-                  <Text className='text-white text-xs font-semibold'>{day.missionsCompleted}</Text>
+                  <Text style={styles.barLabel}>{day.day}</Text>
+                  <Text style={styles.barValue}>{day.missionsCompleted}</Text>
                 </View>
               ))}
             </View>
           </View>
 
           {/* Achievements */}
-          <View className='bg-slate-800 rounded-lg p-6'>
-            <Text className='text-white text-xl font-bold mb-4'>Achievements</Text>
-            <View className='space-y-3'>
-              <View className='flex-row items-center'>
-                <View className='w-8 h-8 bg-yellow-500 rounded-full items-center justify-center mr-3'>
-                  <Text className='text-black font-bold'>🏆</Text>
+          <View style={styles.achievementsCard}>
+            <Text style={styles.cardTitle}>Achievements</Text>
+            <View style={styles.achievementsList}>
+              <View style={styles.achievementItem}>
+                <View style={[styles.achievementIcon, { backgroundColor: '#eab308' }]}>
+                  <Text style={styles.achievementEmoji}>🏆</Text>
                 </View>
                 <View>
-                  <Text className='text-white font-semibold'>Focus Master</Text>
-                  <Text className='text-gray-400 text-sm'>Completed 10+ focus sessions</Text>
+                  <Text style={styles.achievementName}>Focus Master</Text>
+                  <Text style={styles.achievementDesc}>Completed 10+ focus sessions</Text>
                 </View>
               </View>
-              <View className='flex-row items-center'>
-                <View className='w-8 h-8 bg-blue-500 rounded-full items-center justify-center mr-3'>
-                  <Text className='text-black font-bold'>📈</Text>
+              <View style={styles.achievementItem}>
+                <View style={[styles.achievementIcon, { backgroundColor: '#3b82f6' }]}>
+                  <Text style={styles.achievementEmoji}>📈</Text>
                 </View>
                 <View>
-                  <Text className='text-white font-semibold'>Consistent</Text>
-                  <Text className='text-gray-400 text-sm'>7 days in a row</Text>
+                  <Text style={styles.achievementName}>Consistent</Text>
+                  <Text style={styles.achievementDesc}>7 days in a row</Text>
                 </View>
               </View>
-              <View className='flex-row items-center opacity-50'>
-                <View className='w-8 h-8 bg-gray-600 rounded-full items-center justify-center mr-3'>
-                  <Text className='text-white font-bold'>🎯</Text>
+              <View style={[styles.achievementItem, { opacity: 0.5 }]}>
+                <View style={[styles.achievementIcon, { backgroundColor: '#4b5563' }]}>
+                  <Text style={styles.achievementEmoji}>🎯</Text>
                 </View>
                 <View>
-                  <Text className='text-gray-400 font-semibold'>Mission Complete</Text>
-                  <Text className='text-gray-500 text-sm'>Complete 50 missions</Text>
+                  <Text style={[styles.achievementName, { color: '#9ca3af' }]}>Mission Complete</Text>
+                  <Text style={[styles.achievementDesc, { color: '#6b7280' }]}>Complete 50 missions</Text>
                 </View>
               </View>
             </View>
@@ -152,3 +144,121 @@ export default function Progress() {
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#0f172a',
+  },
+  motiView: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+    paddingHorizontal: 24,
+  },
+  summaryCard: {
+    backgroundColor: '#1e293b',
+    borderRadius: 8,
+    padding: 24,
+    marginBottom: 24,
+  },
+  cardTitle: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  summaryRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 16,
+  },
+  summaryItem: {
+    alignItems: 'center',
+  },
+  summaryNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  summarySubNumber: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
+  summaryLabel: {
+    color: '#9ca3af',
+  },
+  chartCard: {
+    backgroundColor: '#1e293b',
+    borderRadius: 8,
+    padding: 24,
+    marginBottom: 24,
+  },
+  chartContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-end',
+    height: 128,
+  },
+  barContainer: {
+    alignItems: 'center',
+    flex: 1,
+  },
+  bar: {
+    backgroundColor: '#2563eb',
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    width: 32,
+    marginBottom: 8,
+  },
+  missionsBar: {
+    backgroundColor: '#16a34a',
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
+    width: 32,
+    marginBottom: 8,
+  },
+  barLabel: {
+    color: '#9ca3af',
+    fontSize: 12,
+  },
+  barValue: {
+    color: 'white',
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  achievementsCard: {
+    backgroundColor: '#1e293b',
+    borderRadius: 8,
+    padding: 24,
+  },
+  achievementsList: {
+    // space-y-3 equivalent
+  },
+  achievementItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  achievementIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 12,
+  },
+  achievementEmoji: {
+    color: 'black',
+    fontWeight: 'bold',
+  },
+  achievementName: {
+    color: 'white',
+    fontWeight: '600',
+  },
+  achievementDesc: {
+    color: '#9ca3af',
+    fontSize: 14,
+  },
+});

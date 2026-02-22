@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Alert, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Modal, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 type AddMissionProps = {
   onAddMission?: (mission: string) => void;
@@ -20,11 +20,11 @@ export function AddMissions({ onAddMission }: { onAddMission?: (mission: string)
     };
 
     return (
-        <View className='w-full h-full bg-slate-950 items-center flex justify-center'>
-            <Text className='text-base font-bold text-white mb-4'>Add Your Mission</Text>
-             <View className='w-[70%] h-[50%] bg-blue-950 flex items-center justify-center rounded-md'>
+        <View style={styles.addMissionsContainer}>
+            <Text style={styles.addMissionsTitle}>Add Your Mission</Text>
+             <View style={styles.inputContainer}>
                 <TextInput 
-                className='w-full h-full bg-white/20 rounded-md p-4 text-white'
+                style={styles.textInput}
                 placeholder='Enter your mission'
                 placeholderTextColor='white'
                 value={missionText}
@@ -33,10 +33,10 @@ export function AddMissions({ onAddMission }: { onAddMission?: (mission: string)
                 />
              </View>
              <TouchableOpacity 
-                className='mt-4 bg-blue-600 px-6 py-2 rounded-md'
+                style={styles.addButton}
                 onPress={handleAddMission}
              >
-                <Text className='text-white font-bold'>Add Mission</Text>
+                <Text style={styles.buttonText}>Add Mission</Text>
              </TouchableOpacity>
         </View>
     )
@@ -54,11 +54,11 @@ export default function AddMission({ onAddMission }: AddMissionProps) {
   return (
     <>
     <TouchableOpacity 
-        className='w-[85%] h-20 px-2 py-3 items-center justify-between rounded-md bg-white/60 '
+        style={styles.addMissionButton}
         onPress={() => setIsOpen(true)}
     >
-      <View className='items-center m-10'>
-         <Text className='text-base font-bold text-slate-900'>Add Mission</Text>
+      <View style={styles.addMissionButtonContent}>
+         <Text style={styles.addMissionButtonText}>Add Mission</Text>
       </View>
     </TouchableOpacity>
 
@@ -67,12 +67,12 @@ export default function AddMission({ onAddMission }: AddMissionProps) {
         animationType="slide"
         onRequestClose={() => setIsOpen(false)}
     >
-        <View className='flex-1'>
+        <View style={styles.modalContainer}>
             <TouchableOpacity 
-                className='absolute top-10 right-10 z-10 bg-red-500 px-4 py-2 rounded-md'
+                style={styles.closeButton}
                 onPress={() => setIsOpen(false)}
             >
-                <Text className='text-white font-bold'>Close</Text>
+                <Text style={styles.closeButtonText}>Close</Text>
             </TouchableOpacity>
             <AddMissions onAddMission={handleAddMission} />
         </View>
@@ -80,3 +80,84 @@ export default function AddMission({ onAddMission }: AddMissionProps) {
     </>
   )
 }
+
+const styles = StyleSheet.create({
+  addMissionsContainer: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#020617',
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+  },
+  addMissionsTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 16,
+  },
+  inputContainer: {
+    width: '70%',
+    height: '50%',
+    backgroundColor: '#172554',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 6,
+  },
+  textInput: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 6,
+    padding: 16,
+    color: 'white',
+  },
+  addButton: {
+    marginTop: 16,
+    backgroundColor: '#2563eb',
+    paddingHorizontal: 24,
+    paddingVertical: 8,
+    borderRadius: 6,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  addMissionButton: {
+    width: '85%',
+    height: 80,
+    paddingHorizontal: 8,
+    paddingVertical: 12,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    borderRadius: 6,
+    backgroundColor: 'rgba(255,255,255,0.6)',
+  },
+  addMissionButtonContent: {
+    alignItems: 'center',
+    margin: 40,
+  },
+  addMissionButtonText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#0f172a',
+  },
+  modalContainer: {
+    flex: 1,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 40,
+    right: 40,
+    zIndex: 10,
+    backgroundColor: '#ef4444',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 6,
+  },
+  closeButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+});

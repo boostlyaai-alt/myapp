@@ -1,6 +1,6 @@
 import { MotiView } from 'moti'
 import React, { useEffect, useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Nav from '../(screens-components)/nav'
 
@@ -10,7 +10,7 @@ export default function Focus() {
   const [isBreak, setIsBreak] = useState(false)
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null
+    let interval: number | null = null
     if (isActive && timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft(timeLeft => timeLeft - 1)
@@ -38,7 +38,7 @@ export default function Focus() {
   }
 
   return (
-    <SafeAreaView className='w-full h-full bg-slate-900'>
+    <SafeAreaView style={styles.container}>
       <MotiView
         from={{
           translateY: -100,
@@ -55,7 +55,7 @@ export default function Focus() {
           duration: 450,
           delay: 60
         }}
-        className='flex-1'
+        style={styles.motiView}
       >
         {/* Header Section */}
         <View>
@@ -63,36 +63,36 @@ export default function Focus() {
         </View>
 
         {/* Focus Timer Section */}
-        <View className='flex-1 items-center justify-center px-10'>
-          <Text className='text-2xl font-bold text-white mb-4'>
+        <View style={styles.timerContainer}>
+          <Text style={styles.title}>
             {isBreak ? 'Break Time' : 'Focus Time'}
           </Text>
 
-          <View className='bg-slate-800 rounded-full w-64 h-64 items-center justify-center mb-8'>
-            <Text className='text-6xl font-bold text-white'>
+          <View style={styles.timerCircle}>
+            <Text style={styles.timerText}>
               {formatTime(timeLeft)}
             </Text>
           </View>
 
-          <View className='flex-row space-x-4'>
+          <View style={styles.buttonContainer}>
             <TouchableOpacity
-              className={`px-8 py-4 rounded-lg ${isActive ? 'bg-red-600' : 'bg-blue-600'}`}
+              style={[styles.button, { backgroundColor: isActive ? '#dc2626' : '#2563eb' }]}
               onPress={() => setIsActive(!isActive)}
             >
-              <Text className='text-white font-bold text-lg'>
+              <Text style={styles.buttonText}>
                 {isActive ? 'Pause' : 'Start'}
               </Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              className='px-8 py-4 rounded-lg bg-gray-600'
+              style={[styles.button, styles.resetButton]}
               onPress={resetTimer}
             >
-              <Text className='text-white font-bold text-lg'>Reset</Text>
+              <Text style={styles.buttonText}>Reset</Text>
             </TouchableOpacity>
           </View>
 
-          <Text className='text-gray-400 mt-8 text-center'>
+          <Text style={styles.hint}>
             {isBreak
               ? 'Take a short break to recharge'
               : 'Stay focused on your mission'
@@ -103,3 +103,62 @@ export default function Focus() {
     </SafeAreaView>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#0f172a',
+  },
+  motiView: {
+    flex: 1,
+  },
+  timerContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 40,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 16,
+  },
+  timerCircle: {
+    backgroundColor: '#1e293b',
+    borderRadius: 128,
+    width: 256,
+    height: 256,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 32,
+  },
+  timerText: {
+    fontSize: 60,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+  },
+  button: {
+    paddingHorizontal: 32,
+    paddingVertical: 16,
+    borderRadius: 8,
+    marginHorizontal: 8,
+  },
+  resetButton: {
+    backgroundColor: '#4b5563',
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  hint: {
+    color: '#9ca3af',
+    marginTop: 32,
+    textAlign: 'center',
+  },
+});

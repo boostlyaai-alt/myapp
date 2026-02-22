@@ -1,14 +1,14 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { MotiView } from 'moti'
+import React from 'react'
+import { StyleSheet, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import AddMission from '../(screens-components)/AddMission'
 import Nav from '../(screens-components)/nav'
 import StatusBox from '../(screens-components)/StatusBox'
-import AddMission from '../(screens-components)/AddMission'
 
 export default function dashboard() {
   return (
-    <SafeAreaView className='w-full h-full bg-slate-900'>
+    <SafeAreaView style={styles.container}>
       <MotiView
       from={{
         translateY:-100,
@@ -24,7 +24,6 @@ export default function dashboard() {
          duration: 450,
           delay: 60 
      }}
-     className=''
       >
         {/* Header Section */}
         <View>
@@ -33,10 +32,22 @@ export default function dashboard() {
         {/* Missions bar */}
          <AddMission />
        {/* Todays's status section */}
-       <View className='px-10 py-2'>
+       <View style={styles.statusContainer}>
         <StatusBox FocusMinutes={120} DoneMissions={3} AllMisions={5} UpcomingCount={2} />
        </View>
       </MotiView>
     </SafeAreaView>
   )
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#0f172a',
+  },
+  statusContainer: {
+    paddingHorizontal: 40,
+    paddingVertical: 8,
+  },
+});

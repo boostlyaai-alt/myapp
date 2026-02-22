@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 type StatusBoxProps = {
     FocusMinutes: number;
@@ -10,13 +10,35 @@ type StatusBoxProps = {
 
 export default function StatusBox({FocusMinutes, DoneMissions, AllMisions, UpcomingCount} : StatusBoxProps) {
   return (
-    <View className='w-[90%] h-[40%] bg-slate-500 items-center justify-center'>
-        <View className='w-full h-full flex items-center justify-center'>
-            <Text className='text-base font-bold text-white'>Focus Minutes : {FocusMinutes}</Text>
-            <Text className='text-base font-bold text-white'>Done Missions : {DoneMissions}</Text>
-            <Text className='text-base font-bold text-white'>All Missions : {AllMisions}</Text>
-            <Text className='text-base font-bold text-white'>Upcoming Missions : {UpcomingCount}</Text>
+    <View style={styles.container}>
+        <View style={styles.innerContainer}>
+            <Text style={styles.text}>Focus Minutes : {FocusMinutes}</Text>
+            <Text style={styles.text}>Done Missions : {DoneMissions}</Text>
+            <Text style={styles.text}>All Missions : {AllMisions}</Text>
+            <Text style={styles.text}>Upcoming Missions : {UpcomingCount}</Text>
         </View>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: '90%',
+    height: '40%',
+    backgroundColor: '#64748b',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  innerContainer: {
+    width: '100%',
+    height: '100%',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: 'white',
+  },
+});

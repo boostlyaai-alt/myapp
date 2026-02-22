@@ -1,10 +1,10 @@
 import { Ionicons } from '@expo/vector-icons'
 import { Tabs } from 'expo-router'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 function MyTabBar({ state, descriptors, navigation }: any) {
   return (
-    <View className="bg-slate-900 border-t border-slate-700 h-15 pb-[5px] pt-[5px] flex-row">
+    <View style={styles.tabBar}>
       {state.routes.map((route: any, index: any) => {
         const { options } = descriptors[route.key]
         const label =
@@ -40,7 +40,7 @@ function MyTabBar({ state, descriptors, navigation }: any) {
             key={route.key}
             onPress={onPress}
             onLongPress={onLongPress}
-            className="flex-1 items-center justify-center"
+            style={styles.tabButton}
           >
             {options.tabBarIcon &&
               options.tabBarIcon({
@@ -48,9 +48,7 @@ function MyTabBar({ state, descriptors, navigation }: any) {
                 size: 24,
               })}
             <Text
-              className={`text-xs font-semibold ${
-                isFocused ? 'text-blue-500' : 'text-slate-400'
-              }`}
+              style={[styles.tabLabel, { color: isFocused ? '#3b82f6' : '#94a3b8' }]}
             >
               {label}
             </Text>
@@ -117,3 +115,24 @@ export default function Layout() {
     </Tabs>
   )
 }
+
+const styles = StyleSheet.create({
+  tabBar: {
+    backgroundColor: '#0f172a',
+    borderTopWidth: 1,
+    borderTopColor: '#334155',
+    height: 60,
+    paddingBottom: 5,
+    paddingTop: 5,
+    flexDirection: 'row',
+  },
+  tabButton: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tabLabel: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+});
