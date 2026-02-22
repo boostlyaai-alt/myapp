@@ -2,15 +2,14 @@ import { useRouter } from "expo-router";
 import { AnimatePresence, MotiView } from "moti";
 import React, { useMemo, useState } from "react";
 import {
-    Alert,
-    KeyboardAvoidingView,
-    Platform,
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    TextInput,
-    View,
+  Alert,
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
 } from "react-native";
 
 
@@ -64,23 +63,23 @@ export default function SignUp() {
 
   return (
     <KeyboardAvoidingView
-      style={styles.container}
+      className="flex-1 bg-[#070A12]"
       behavior={Platform.OS === "ios" ? "padding" : undefined}
     >
       {/* خلفية Blur/Glow خفيفة */}
-      <View style={styles.glow1} />
-      <View style={styles.glow2} />
+      <View className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-indigo-500/20 blur-3xl" />
+      <View className="absolute -bottom-24 -left-24 h-72 w-72 rounded-full bg-fuchsia-500/15 blur-3xl" />
 
       <ScrollView
         contentContainerStyle={{ flexGrow: 1 }}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.content}>
+        <View className="flex-1 justify-center px-5 py-6">
           <MotiView
             from={{ opacity: 0, translateY: 22 }}
             animate={{ opacity: 1, translateY: 0 }}
             transition={{ type: "timing", duration: 500 }}
-            style={styles.card}
+            className="rounded-3xl border border-white/10 bg-slate-900/80 p-5 shadow-2xl"
           >
             {/* Header */}
             <MotiView
@@ -88,16 +87,16 @@ export default function SignUp() {
               animate={{ opacity: 1, translateY: 0 }}
               transition={{ type: "timing", duration: 450, delay: 60 }}
             >
-              <Text style={styles.title}>
+              <Text className="text-2xl font-extrabold text-white">
                 Create account
               </Text>
-              <Text style={styles.subtitle}>
+              <Text className="mt-1 text-white/65">
                 Sign up in a few seconds
               </Text>
             </MotiView>
 
             {/* Divider */}
-            <View style={styles.divider} />
+            <View className="my-4 h-px bg-white/10" />
 
             {/* Staggered fields */}
             <MotiView
@@ -144,7 +143,7 @@ export default function SignUp() {
             </MotiView>
 
             {/* CTA */}
-            <View style={styles.cta}>
+            <View className="mt-5">
               <Pressable
                 onPress={handleSubmit}
                 disabled={!canSubmit || loading}
@@ -156,13 +155,13 @@ export default function SignUp() {
                       scale: pressed && canSubmit && !loading ? 0.98 : 1,
                     }}
                     transition={{ type: "timing", duration: 120 }}
-                    style={styles.buttonContainer}
+                    className="overflow-hidden rounded-2xl"
                   >
                     {/* زر بجراديانت وهمي (Layer) */}
-                    <View style={styles.buttonBg1} />
-                    <View style={styles.buttonBg2} />
+                    <View className="absolute inset-0 bg-white" />
+                    <View className="absolute inset-0 bg-indigo-500/15" />
 
-                    <View style={styles.buttonContent}>
+                    <View className="flex-row items-center justify-center py-4">
                       <AnimatePresence>
                         {loading ? (
                           <MotiView
@@ -171,12 +170,13 @@ export default function SignUp() {
                             animate={{ opacity: 1, scale: 1 }}
                             exit={{ opacity: 0, scale: 0.8 }}
                             transition={{ type: "timing", duration: 150 }}
-                            style={styles.spinner}
+                            className="mr-2 h-4 w-4 rounded-full border-2 border-slate-900/30 border-t-slate-900"
+                            style={{ transform: [{ rotate: "45deg" }] }}
                           />
                         ) : null}
                       </AnimatePresence>
 
-                      <Text style={styles.buttonText}>
+                      <Text className="text-base font-extrabold text-slate-950">
                         {loading ? "Creating..." : "Sign up"}
                       </Text>
                     </View>
@@ -184,21 +184,21 @@ export default function SignUp() {
                 )}
               </Pressable>
 
-              <Pressable onPress={() => router.back()} style={styles.backButton}>
+              <Pressable onPress={() => router.back()} className="mt-3">
                 {({ pressed }) => (
                   <MotiView
                     animate={{ opacity: pressed ? 0.7 : 1 }}
                     transition={{ type: "timing", duration: 120 }}
-                    style={styles.backButtonContent}
+                    className="items-center py-2"
                   >
-                    <Text style={styles.backText}>
+                    <Text className="text-white/75 underline">
                       Already have an account? Go back
                     </Text>
                   </MotiView>
                 )}
               </Pressable>
 
-              <Text style={styles.hint}>
+              <Text className="mt-1 text-center text-xs text-white/40">
                 Password must be at least 6 characters.
               </Text>
             </View>
@@ -385,9 +385,9 @@ function AnimatedField(props: {
         duration: 380,
         delay: 140 + i * 70, // Stagger
       }}
-      style={styles.fieldContainer}
+      className="mt-3"
     >
-      <Text style={styles.fieldLabel}>
+      <Text className="mb-2 text-[13px] font-semibold text-white/80">
         {label}
       </Text>
 
@@ -397,14 +397,14 @@ function AnimatedField(props: {
           backgroundColor: focused ? "rgba(255,255,255,0.06)" : "rgba(255,255,255,0.04)",
         }}
         transition={{ type: "timing", duration: 160 }}
-        style={styles.fieldInputContainer}
+        className="rounded-2xl border px-4 py-3"
       >
         <TextInput
           value={value}
           onChangeText={onChangeText}
           placeholder={placeholder}
           placeholderTextColor="#6b7280"
-          style={styles.fieldInput}
+          className="text-[15px] text-white"
           secureTextEntry={secureTextEntry}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize ?? "sentences"}
@@ -422,7 +422,7 @@ function AnimatedField(props: {
             animate={{ opacity: 1, scaleX: 1 }}
             exit={{ opacity: 0, scaleX: 0.9 }}
             transition={{ type: "timing", duration: 180 }}
-            style={styles.fieldGlow}
+            className="mt-2 h-1 rounded-full bg-indigo-400/40"
           />
         ) : null}
       </AnimatePresence>
