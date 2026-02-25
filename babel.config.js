@@ -3,18 +3,8 @@ module.exports = function (api) {
   return {
     presets: ["babel-preset-expo"],
     plugins: [
-      "nativewind/babel",
-      [
-        "react-native-reanimated/plugin",
-        {
-          relativeSourceLocation: true,
-        },
-      ],
+      "expo-router/babel",
+      "react-native-reanimated/plugin", // لازم يكون آخر واحد
     ],
-    env: {
-      production: {
-        plugins: ["react-native-reanimated/plugin"],
-      },
-    },
   };
 };
